@@ -42,12 +42,19 @@
     // initial slide.
     av.displayInit();
     // We are now starting a new slide (#2)
- 
-     arr.swap(0,5);
+    av.step();
+
+    for(var i =0; i < theArray.length; i++){
+    var randomIndex = Math.floor(Math.random() * theArray.length);
+    arr.swap(i,randomIndex);
+    av.step();
+    }
     av.umsg("... and text after displayInit()", {preserve: true});
 
-    av.step();
-    arr.swap(1,6);
+
+   
+
+
     // We are now starting a new slide (#3)
 
     av.umsg("Text after av.step()");
