@@ -37,33 +37,35 @@
 	
     var arr = av.ds.array(theArray, {indexed: true});
 
-    av.umsg("Text before displayInit()" + "  " + "Swap 5 random values");
+    av.umsg("Text before displayInit()");
     // Note: av.displayInit() will not affect the number of slides.
     // All that it will do is affect what you get to see on the
     // initial slide.
     av.displayInit();
     // We are now starting a new slide (#2)
 	
-	for(var i=0; i<5; i++)
+	for(var i=0; i<12; i++)
 	{
-	   var a = Math.floor(Math.random() * theArray.length);
-	   var b = Math.floor(Math.random() * theArray.length);
-	   arr.swap(a,b);
+	   var a = i;
+	   var b = Math.floor(Math.random() * (theArray.length));
+		while(a == b)
+		{		
+			//a = Math.floor(Math.random() * (theArray.length));
+	   	b = Math.floor(Math.random() * (theArray.length));
+	   	if(i != b)
+	   	{
+	   		break;
+	   	}
+		}
+
+	   arr.swap(i,b);
+	   av.step();
 	}
 	
-    av.umsg("... and text after displayInit()" + "  " + "Swap 5 random values", {preserve: true});
-    av.step();
-	
+    //av.umsg("... and text after displayInit()", {preserve: true});
     // We are now starting a new slide (#3)
-    av.umsg("Text after av.step()" + "  " + "Swaps after 10 random swaps");
-	
-	for(var i=0; i<5; i++)
-	{
-	   var a = Math.floor(Math.random() * theArray.length);
-	   var b = Math.floor(Math.random() * theArray.length);
-	   arr.swap(a,b);
-	}
-	
+    //av.umsg("Text after av.step()");
+    
     av.recorded();
     // If you add av.umsg after av.recorded, it will add new slides in
     // ways that you probably do not expect and probably cannot
