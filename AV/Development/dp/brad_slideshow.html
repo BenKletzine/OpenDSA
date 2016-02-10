@@ -33,25 +33,28 @@
   (function() {
     var av = new JSAV("container");
     var theArray = [20, 30, 44, 54, 55, 11, 78, 14, 13, 79, 12, 98];
-    // for(var i=0; i<13; i++){
-    //   var a = Math.floor(Math.random() * theArray.length);
-    //   var b = Math.floor(Math.random() * theArray.length);
-    //   theArray[a]^=theArray[b];
-    //   theArray[b]^=theArray[a];
-    //   theArray[a]^=theArray[b];
-    // }
+
     var arr = av.ds.array(theArray, {indexed: true});
-    av.umsg("Text before displayInit()");
+    av.umsg("Five iterations of swapping random element pairs");
+    
     // Note: av.displayInit() will not affect the number of slides.
     // All that it will do is affect what you get to see on the
     // initial slide.
     av.displayInit();
-    // We are now starting a new slide (#2)
-    av.umsg("... and text after displayInit()", {preserve: true});
-    arr.swap(1,3);
-    av.step();
+
+    for(var i = 0; i<5; ++i){
+      var a = Math.floor(Math.random() * (theArray.length));
+      var b = a;
+      while(a==b){
+        b = Math.floor(Math.random() * (theArray.length));
+      }
+
+      av.umsg("Swap "+a+" and "+b);
+      arr.swap(a,b);
+      av.step();      
+    }
     // We are now starting a new slide (#3)
-    av.umsg("Text after av.step()");
+    av.umsg("Done swapping");
     av.recorded();
     // If you add av.umsg after av.recorded, it will add new slides in
     // ways that you probably do not expect and probably cannot
