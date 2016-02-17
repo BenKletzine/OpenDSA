@@ -1,0 +1,31 @@
+{
+  "title": "Example of My Simple Book",
+  "build_dir": "Books",
+  "code_dir": "SourceCode/",
+  "code_lang": {},
+  "lang": "en",
+  "module_origin": "http://algoviz.org",
+  "exercise_server": "https://opendsa.cs.vt.edu/",
+  "logging_server": "https://opendsa.cs.vt.edu/",
+  "score_server": "https://opendsa.cs.vt.edu/",
+  "build_JSAV": false,
+  "allow_anonymous_credit": true,
+  "suppress_todo": false,
+  "glob_exer_options": {
+    "JXOP-debug": "true"
+  },
+  "chapters": {
+    "Preface": {
+      "Intro": {
+        "long_name": "How to (not) Use this System",
+        "sections": {}
+      }
+    },
+    "Some AVs": {
+      "Development/brad-test": {
+        "long_name": "Example of a Simple Example of Using an Example Slide Show Example",
+        "sections": {}
+      }
+    }
+  }
+}
