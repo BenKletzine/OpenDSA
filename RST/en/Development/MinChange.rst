@@ -4,7 +4,7 @@
 .. distributed under an MIT open source license.
 
 .. avmetadata:: 
-   :author: Thang Lor
+   :author: Thang Lor, Ben Kletzine, Brad LaVigne
 
 ============================================================
 Illustrate a simple slide show in an OpenDSA learning module
@@ -18,8 +18,8 @@ The following slideshow demonstrates how, starting with a slideshow
 like you worked with in last week's lab, you can incorporate it into a
 learning module.
 
-.. inlineav:: ThangArraySwap ss
+.. inlineav:: MinChange1 ss
    :output: show
 
 
-.. odsascript:: AV/Development/ThangArraySwap.js
+.. odsascript:: AV/Development/MinChange/MinChange1.js

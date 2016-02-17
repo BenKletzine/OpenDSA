@@ -292,6 +292,9 @@ C2GEN: min
 slides: min
 	python $(CONFIG_SCRIPT) -s config/slides.json
 	
+MinChange: min
+	python $(CONFIG_SCRIPT) config/MinChange.json
+	
 ThangArraySwap: min
 	python $(CONFIG_SCRIPT) config/ThangArraySwap.json 
 
