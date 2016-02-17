@@ -27,8 +27,9 @@ $(document).ready(function () {
     for(var i=0; i<12; i++)
 	{
 		av.umsg("From " + i + ", we randomly switch with any number in the array");
-		arr.highlight([i])
-		
+		arr.highlight([i]);
+		av.step();		
+
 	    var b = Math.floor(Math.random() * (theArray.length));
 		while(i == b)
 		{		
@@ -39,9 +40,13 @@ $(document).ready(function () {
 	   			break;
 	   		}
 		}
+		
+		arr.highlight([b]);
 	    arr.swap(i,b);
 	    av.step();
 		arr.unhighlight([i]);
+		arr.unhighlight([b]);
+
 	}
     // We are now starting a new slide (#3)
     //av.umsg("Text after av.step()");
