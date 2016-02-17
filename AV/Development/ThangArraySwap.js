@@ -13,32 +13,35 @@ $(document).ready(function () {
     //code = config.code;                   // get the code object
 	
     var av = new JSAV("ThangArraySwap");
-	//var pseudo = av.code(code);
     var theArray = [20, 30, 44, 54, 55, 11, 78, 14, 13, 79, 12, 98];
     var arr = av.ds.array(theArray, {indexed: true});
-    av.umsg("Text before displayInit()");
+    av.umsg("We start from left to right");
+	
     // Note: av.displayInit() will not affect the number of slides.
     // All that it will do is affect what you get to see on the
     // initial slide.
     av.displayInit();
     // We are now starting a new slide (#2)
-    av.umsg("... and text after displayInit()", {preserve: true});
+    //av.umsg("... and text after displayInit()", {preserve: true})
+	
     for(var i=0; i<12; i++)
 	{
-	   var a = i;
-	   var b = Math.floor(Math.random() * (theArray.length));
-		while(a == b)
+		av.umsg("From " + i + ", we randomly switch with any number in the array");
+		arr.highlight([i])
+		
+	    var b = Math.floor(Math.random() * (theArray.length));
+		while(i == b)
 		{		
-			//a = Math.floor(Math.random() * (theArray.length));
-	   	b = Math.floor(Math.random() * (theArray.length));
-	   	if(i != b)
-	   	{
-	   		break;
-	   	}
-		}
+	   		b = Math.floor(Math.random() * (theArray.length));
 
-	   arr.swap(i,b);
-	   av.step();
+	   		if(i != b)
+	   		{	
+	   			break;
+	   		}
+		}
+	    arr.swap(i,b);
+	    av.step();
+		arr.unhighlight([i]);
 	}
     // We are now starting a new slide (#3)
     //av.umsg("Text after av.step()");
