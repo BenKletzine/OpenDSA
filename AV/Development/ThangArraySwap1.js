@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     JSAV.init();
 
-    var av = new JSAV("ThangMake1");
+    var av = new JSAV("ThangArraySwap");
     var theArray = [20, 30, 44, 54, 55, 11, 78, 14, 13, 79, 12, 98];
     var arr = av.ds.array(theArray, {indexed: true});
     av.umsg("Text before displayInit()");
@@ -15,10 +15,25 @@ $(document).ready(function () {
     av.displayInit();
     // We are now starting a new slide (#2)
     av.umsg("... and text after displayInit()", {preserve: true});
-    arr.swap(3,7);
-    av.step();
+    for(var i=0; i<12; i++)
+	{
+	   var a = i;
+	   var b = Math.floor(Math.random() * (theArray.length));
+		while(a == b)
+		{		
+			//a = Math.floor(Math.random() * (theArray.length));
+	   	b = Math.floor(Math.random() * (theArray.length));
+	   	if(i != b)
+	   	{
+	   		break;
+	   	}
+		}
+
+	   arr.swap(i,b);
+	   av.step();
+	}
     // We are now starting a new slide (#3)
-    av.umsg("Text after av.step()");
+    //av.umsg("Text after av.step()");
     av.recorded();
     // If you add av.umsg after av.recorded, it will add new slides in
     // ways that you probably do not expect and probably cannot
