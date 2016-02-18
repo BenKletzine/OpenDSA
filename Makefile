@@ -294,6 +294,12 @@ slides: min
 	
 brad-test: min
 	python $(CONFIG_SCRIPT) config/brad-test.json --local
+	
+MinChange: min
+	python $(CONFIG_SCRIPT) config/MinChange.json
+	
+ThangArraySwap: min
+	python $(CONFIG_SCRIPT) config/ThangArraySwap.json 
 
 allBooks: CS208 CS2114 CS2401 CS3114 CS3530 OpenDSA Everything testcmap
 
