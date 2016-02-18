@@ -4,19 +4,17 @@
 .. distributed under an MIT open source license.
 
 .. avmetadata:: 
-   :author: Brad LaVigne, Team member 2, Team member 3
+   :author: Brad LaVigne
 
 ============================================================
-Illustrate a simple slide show in an OpenDSA learning module
+Prototypes
 ============================================================
 
-Swapping array elements
+Algorithmic slide generation
 -----------------------
 
 
-The following slideshow demonstrates how, starting with a slideshow
-like you worked with in last week's lab, you can incorporate it into a
-learning module...or something.
+Generates slides while executing the actual algorithm being visualized.
 
 .. inlineav:: brad-test ss
    :output: show

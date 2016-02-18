@@ -1,65 +1,97 @@
 "use strict";
 
 $(document).ready(function () {
-    JSAV.init();
+   var s0 = {"background-color":"lightgray"};
+   var s1 = {"background-color":"sandybrown"};
+   var s2 = {"background-color":"skyblue"};
+   var s3 = {"background-color":"lightgreen"};
+   var s4 = {"background-color":"violet"};
 
-    var av = new JSAV("brad-test");
-    var jsArr = [
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    ];
-    var jsCoins = [1,3,5];
-    var avArr = av.ds.matrix(jsArr);
+   //js vars
+   var amount = 13;
+   var jsCoins = getCoins();
+   var jsArr = arrInit(jsCoins.length, amount);
+   var slides = [0,12,13,14,15,16,17,18,27,28,32,33,41];
 
-    //slide (#1)
-    av.umsg("..Text before displayInit()");
+   //fire up the av
+   JSAV.init();
+   var av = new JSAV("brad-test");
+   var avArr = av.ds.matrix(jsArr);
+   
 
-    // Note: av.displayInit() will not affect the number of slides.
-    // All that it will do is affect what you get to see on the
-    // initial slide.
-    av.displayInit();
+   //first slide
+   av.umsg("OMG DYNAMIC PROGRAMMING!!1");
+   av.displayInit();
+   //end first slide
 
+   getCha(amount, slides);
+   // new slide
+   av.umsg("execution complete");
+   av.step();
 
-    var getCha = function(amt){
-      for (var i = 0; i < jsArr.length; ++i) {
-        for (var j = 0; j < jsArr[i].length && j <= amt; ++j) {
-          var above = i > 0 ? jsArr[i-1][j] : 40;
-          var left = j == 0 ? -1 : j >= jsCoins[i] ? jsArr[i][j-jsCoins[i]] : 50;
-          jsArr[i][j] = above > left ? left + 1 : above;
+   // last slide
+   av.umsg("that's all, folks");
+   av.recorded();
 
-          var arr = av.ds.matrix(jsArr);
-          av.umsg("...and text after displayInit()"+i+","+j, {preserve: true});
-          av.step();
-        }
+   // If you add av.umsg after av.recorded, it will add new slides in
+   // ways that you probably do not expect and probably cannot
+   // control in the way that you want. As av.recorded() rewinds the
+   // slideshow, the new slides would go to the beginning of the slideshow.
+   // So, unless you are trying to add slides on-the-fly
+   // interactively, you don't want to do this.
+   // av.umsg("Text after av.recorded()");   
+
+   /*Get denominations to be used*/
+   function getCoins(){
+      //add user input
+      return [1,3,5];
+   }
+
+   /*Initialize matrix based on number of coins and amount of change*/
+   function arrInit(coins, amt){
+      var arr = [];
+      for (var i = 0; i < coins; i++) {
+         arr[i] = new Array(amount + 1);
       }
-    }
-    getCha(13);
+      return arr;
+   }
 
-    //jsArr = [0,1,2,3,4,5,6];
-    
+   /*Compute solution and generate slides at specified indexes*/
+   function getCha(amt, show){
+      var cnt = 0;
+      for (var i = 0; i < jsArr.length; ++i) {
+         for (var j = 0; j < jsArr[i].length && j <= amt; ++j) {
+            //get optimals for using(left) and not using(above) current coin
+            var above = i > 0 ? jsArr[i-1][j] : 1337;
+            var left = j == 0 ? -1 : j >= jsCoins[i] ? jsArr[i][j-jsCoins[i]] : 1337;
 
+            //choose better option and update js *AND* av arrays
+            jsArr[i][j] = above > left ? left + 1 : above;
+            avArr.value(i, j, jsArr[i][j]);
 
+            //apply "current" style
+            avArr.highlight(i, j);
+            console.log("cnt: " + cnt + "\n");
 
-    // We are now starting a new slide (#2)
-    av.umsg("...and text after displayInit()", {preserve: true});
+            //only add msg and step if a slide is desired
+            if(cnt++ == show[0]){
+               /*apply "looking at" style here*/
 
-    //function call here...
-    avArr.swap(1,1,2,2);
-    av.step();
+               av.umsg("coin: " + jsCoins[i] + "; index: " + i + "," + j);
+               av.step();
+               show.shift();
+            }
 
-    // We are now starting a new slide (#3)
-    av.umsg("..Text after av.step()");
+            //apply "completed" style
+            style(i, j, s0);
+         }
+      }
+   }
 
-
-    //end of slides
-    av.recorded();
-
-    // If you add av.umsg after av.recorded, it will add new slides in
-    // ways that you probably do not expect and probably cannot
-    // control in the way that you want. As av.recorded() rewinds the
-    // slideshow, the new slides would go to the beginning of the slideshow.
-    // So, unless you are trying to add slides on-the-fly
-    // interactively, you don't want to do this.
-    // av.umsg("Text after av.recorded()");
+   /*Index [i][j] is highlighted and has style s applied*/
+   function style(i, j, s){
+      
+      avArr.unhighlight(i, j);
+      avArr.css(i, j, s);
+   }
 });
