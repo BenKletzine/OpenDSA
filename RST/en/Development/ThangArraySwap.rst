@@ -14,9 +14,7 @@ Swapping array elements
 -----------------------
 
 
-The following slideshow demonstrates how, starting with a slideshow
-like you worked with in last week's lab, you can incorporate it into a
-learning module.
+The following slideshow demonstrates how my array swap works.
 
 .. inlineav:: ThangArraySwap ss
    :output: show
