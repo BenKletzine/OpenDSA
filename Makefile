@@ -301,6 +301,10 @@ MinChange: min
 ThangArraySwap: min
 	python $(CONFIG_SCRIPT) config/ThangArraySwap.json 
 
+Thangem: min
+	python $(CONFIG_SCRIPT) config/Thangem.json
+
+
 allBooks: CS208 CS2114 CS2401 CS3114 CS3530 OpenDSA Everything testcmap
 
 nomin:
