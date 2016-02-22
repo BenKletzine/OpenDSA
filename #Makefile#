@@ -300,10 +300,7 @@ ThangArraySwap: min
 
 KletzineArraySwap: min
 	python $(CONFIG_SCRIPT) config/KletzineArraySwap.json
-
-DynamicMinChange: min
-	python $(CONFIG_SCRIPT) config/DynamicMinChange.json
-
+/students/kletzb05/Downloads/DynamicMinChange1.js
 allBooks: CS208 CS2114 CS2401 CS3114 CS3530 OpenDSA Everything testcmap
 
 nomin:
