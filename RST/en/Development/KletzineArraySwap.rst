@@ -20,5 +20,12 @@ of the array.
 .. inlineav:: KletzineArraySwap ss
    :output: show
 
-
 .. odsascript:: AV/Development/KletzineArraySwap.js
+
+Interactive Example
+-------------------------------------------
+
+Here we have to same process. Try with your own space separated list of numbers
+
+
+.. avembed:: AV/Development/KletzineEmbedded.html ss
