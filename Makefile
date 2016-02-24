@@ -308,7 +308,7 @@ thangacad: min
 	python $(CONFIG_SCRIPT) config/thangacad.json --local
 
 KletzineArraySwap: min
-	python $(CONFIG_SCRIPT) config/KletzineArraySwap.json
+	python $(CONFIG_SCRIPT) config/KletzineArraySwap.json --local
 
 DynamicMinChange: min
 	python $(CONFIG_SCRIPT) config/DynamicMinChange.json
