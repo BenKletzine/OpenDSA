@@ -2,9 +2,9 @@
 $(document).ready(function () {
 JSAV.init();
 var av = new JSAV("DynamicMinChange1");
-var theArray = [20, 30, 44, 54, 55, 11, 78, 14, 13, 79, 12, 98];
-var arr = av.ds.array(theArray, {indexed: true});
-av.umsg("Text before displayInit()");
+var problem = [0,1,2,3,4,5,6][1,2,3];
+var solution = av.ds.matrix(problem, {indexed: true});
+av.umsg("We start with an initial array");
 // Note: av.displayInit() will not affect the number of slides.
 // All that it will do is affect what you get to see on the
 // initial slide.
@@ -16,11 +16,6 @@ av.step();
 // We are now starting a new slide (#3)
 av.umsg("Text after av.step()");
 av.recorded();
-// If you add av.umsg after av.recorded, it will add new slides in
-// ways that you probably do not expect and probably cannot
-// control in the way that you want. As av.recorded() rewinds the
-// slideshow, the new slides would go to the beginning of the slideshow.
-// So, unless you are trying to add slides on-the-fly
-// interactively, you don’t want to do this.
-// av.umsg("Text after av.recorded()");
 });
+
+

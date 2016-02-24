@@ -7,16 +7,15 @@
    :author: Ben Kletzine
 
 ============================================================
-Illustrate a simple slide show in an OpenDSA learning module
+Unsorting an array
 ============================================================
 
 Swapping array elements
 -----------------------
 
-
-The following slideshow demonstrates how, starting with a slideshow
-like you worked with in last week's lab, you can incorporate it into a
-learning module.
+The algorithm iterates through each index and swaps the element at that 
+index with another element at a random index from 0 to n, where n is the length
+of the array.
 
 .. inlineav:: KletzineArraySwap ss
    :output: show

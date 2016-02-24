@@ -5,9 +5,12 @@
 ..avmetadata::
 :author: Ben Kletzine, Thang Lor, Bradley Lavigne
 ============================================================
-Illustrate a simple slide show in an OpenDSA learning module
+Dynamic Programming applied to the Minimum Coin Change Problem
 ============================================================
-Swapping array elements
+Intro
+-----------------------
+
+Example
 -----------------------
 
 The following slideshow demonstrates how, starting with a slideshow
