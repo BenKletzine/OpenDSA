@@ -303,6 +303,9 @@ ThangArraySwap: min
 
 Thangem: min
 	python $(CONFIG_SCRIPT) config/Thangem.json
+	
+thangacad: min
+	python $(CONFIG_SCRIPT) config/thangacad.json
 
 KletzineArraySwap: min
 	python $(CONFIG_SCRIPT) config/KletzineArraySwap.json
