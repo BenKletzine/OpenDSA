@@ -22,20 +22,37 @@
 		"sections": {}
 	    }
 	},
-	"A Simple Example": 
-	{
-	    "Development/KletzineArraySwap": {
+	"A Simple Example": {
+	    "Development/thangacad": {
 		"long_name": "Simple Example of Using a Slide Show in a Book Module",
 		"sections": {
 		    "A Khan Academy Exericse with JSAV object": {
-			"KletzineArrayJSAV": {
+			"Thangacadex1": {
 			    "long_name": "KA Exercise Example with JSAV object",
 			    "required": true,
 			    "points": 1.0,
 			    "threshold": 3.0,
-			    "showhide": "Show"}
+			    "showhide": "Show"
+			}
+		    },
+		    "A Khan Academy Exericse with fill-in-the-blank question": {
+			"Thangacadex2": {
+			    "long_name": "KA Exercise Example with fill in the blank question",
+			    "required": true,
+			    "points": 1.0,
+			    "threshold": 3.0,
+			    "showhide": "Show"
+			}
+		    },
+		    "A Khan Academy Exericse with multiple-choice question": {
+			"Thangacadex3": {
+			    "long_name": "KA Exercise Example with MC question",
+			    "required": true,
+			    "points": 1.0,
+			    "threshold": 3.0,
+			    "showhide": "Show"
+			}
 		    }
-		
 		}
 	    }
 	}
