@@ -9,7 +9,7 @@ $(document).ready(function () {
 
    //js vars
    var amount = 13;
-   var jsCoins = getCoins();
+   var jsCoins = [1,3,5]; //getCoins();
    var jsArr = arrInit(jsCoins.length, amount);
    var slides = [0,12,13,14,15,16,17,18,27,28,32,33,41];
 
@@ -17,7 +17,6 @@ $(document).ready(function () {
    JSAV.init();
    var av = new JSAV("brad-test");
    var avArr = av.ds.matrix(jsArr);
-   
 
    //first slide
    av.umsg("OMG DYNAMIC PROGRAMMING!!1");
@@ -26,6 +25,8 @@ $(document).ready(function () {
 
    getCha(amount, slides);
    // new slide
+   backtrack();
+
    av.umsg("execution complete");
    av.step();
 
@@ -44,7 +45,7 @@ $(document).ready(function () {
    /*Get denominations to be used*/
    function getCoins(){
       //add user input
-      return [1,3,5];
+      return [1,4,7];
    }
 
    /*Initialize matrix based on number of coins and amount of change*/
@@ -69,14 +70,12 @@ $(document).ready(function () {
             jsArr[i][j] = above > left ? left + 1 : above;
             avArr.value(i, j, jsArr[i][j]);
 
-            //apply "current" style
-            avArr.highlight(i, j);
             console.log("cnt: " + cnt + "\n");
 
             //only add msg and step if a slide is desired
             if(cnt++ == show[0]){
                /*apply "looking at" style here*/
-
+               avArr.highlight(i, j);
                av.umsg("coin: " + jsCoins[i] + "; index: " + i + "," + j);
                av.step();
                show.shift();
@@ -86,6 +85,33 @@ $(document).ready(function () {
             style(i, j, s0);
          }
       }
+   }
+
+   function backtrack(){
+      var cntCoins = [0,0,0];
+      var i = jsArr.length - 1;
+      var j = jsArr[0].length - 1;
+
+      while(j > 0){
+         if(i > 0 && jsArr[i][j] == jsArr[i-1][j]){
+            i--;
+            avArr.highlight(i, j);
+            av.umsg("baH");
+            av.step();
+            style(i, j, s3);
+         }else{
+            j -= jsCoins[i];
+            cntCoins[i]++;
+            avArr.highlight(i, j);
+            av.umsg("baH");
+            av.step();
+            style(i, j, s2);
+         }
+         
+         
+         
+      }
+      console.log(cntCoins);
    }
 
    /*Index [i][j] is highlighted and has style s applied*/
