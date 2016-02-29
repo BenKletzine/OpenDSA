@@ -17,7 +17,7 @@ function runit() {
     if (!theArray) {
 	theArray = [];
 	for (i = 0; i < 12; i++) {
-	    theArray.push(Math.trunc(50 * Math.random() + 10));
+	    theArray.push(Math.trunc(i * 2));
 	}
     }
 
@@ -31,7 +31,7 @@ function runit() {
     av.displayInit();
     // We are now starting a new slide (#2)
     av.umsg("... and text after displayInit()", {preserve: true});
-    arr.swap(3,7);
+    arr.swap(1,2);
     av.step();
     // We are now starting a new slide (#3)
     av.umsg("Text after av.step()");
@@ -57,7 +57,7 @@ function help() {
 }
   
 // Initialize the arraysize dropdown list
-ODSA.AV.initArraySize(10, 16, 12); // Between 10 and 16, with default at 12
+ODSA.AV.initArraySize(6, 12, 6); // Between 10 and 16, with default at 12
 
 
 // Connect action callbacks to the HTML entities

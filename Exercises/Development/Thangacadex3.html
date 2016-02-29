@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html data-require="jsav math Thangacadex3">
   <head>
-    <title>Pick the largest using multiple-choice</title>
+    <title>Pick the next using multiple-choice</title>
     <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
     <script src="../../khan-exercises/local-only/main.js" ></script>
   </head>
@@ -9,18 +9,26 @@
   <body data-height="650" data-width="950">
     <div class="exercise">
       <div class="vars">
-        <var id="arrSize">KhanUtil.randRange(4, 11)</var>
-	<var id="lastIndex">arrSize - 1</var>
-        <var id="arrValues">thangacadex3.initArr(arrSize)</var>
-        <var id="theAnswer">thangacadex3.maxValue()</var>
+        <var id="arrSize">KhanUtil.randRange(4, 11)</var>  <!-- Change Wanted -->
+		<var id="arrSize2">KhanUtil.randRange(2, 10)</var> <!-- What length of array you are at -->
+		<var id="arrSize3">KhanUtil.randRange(2, 5)</var>  <!-- What denomination you are at -->
+	<var id="lastIndex">arrSize2 - 1</var>
+        <var id="arrValues">thangacadex3.initArr(arrSize2, arrsize3)</var>
+		<!-- <var id="arrValues2">thangacadex3.initArr2(arrSize2, arrSize3)</var> -->
+		<!-- <var id="arrValues3">thangacadex3.initArr3(arrSize3)</var> -->
+        <var id="theAnswer">thangacadex3.nextValue(arrSize2, arrSize3)</var>
         <var id="option0">thangacadex3.option[0]</var>
         <var id="option1">thangacadex3.option[1]</var>
         <var id="option2">thangacadex3.option[2]</var>
       </div>
       <div class="problems">
         <div id="Thangacadex3p">
-          <p class="question">What is the largest value in this list of numbers? </p>
-	  <pre><var>arrValues</var></pre>
+          <p class="question">What is the next value in this list of numbers? </p>
+		  
+	  <p>Change Wanted: </p> <pre><var>arrSize</var></pre> <! Display denomination >
+	  <p>Your Denomination: </p> <pre><var>arrSize3</var></pre> <! Display denomination >
+	  <p>First Row: </p> <pre><var>arrValues</var></pre>
+	  <!-- <p>Second Row: </p><pre><var>arrValues2</var></pre> -->
           <div class="solution"> <var>theAnswer</var></div>
 	  <ul class="choices">
 	    <li><var>option0</var></li>
