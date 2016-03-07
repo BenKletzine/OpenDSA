@@ -12,26 +12,16 @@
 	    var i;
 	    var next_val;
 	    var array_str;
-		//var rand_num = Math.floor(Math.random() * 3 + 1);
+
 	    my_array = [];
 	    for (i = 0; i < arr_size; i++) {
 		
 		
 		next_val = denom * i;
-		
-		//if(next_val % arr_size == 0)
-		//{
-		//   counter++;
-		//   next_Val = counter;
-		//}
-		
-		
-		
-		//next_val = i;
-		//next_val = Math.floor(Math.random() * 1000 + 1);
+
 		while (my_array.includes(next_val))
             next_val = denom * i;
-		    //next_val = Math.floor(Math.random() * 1000 + 1);
+            
 		my_array.push(next_val);
 		console.log(" " + next_val);
 	    }
@@ -78,12 +68,7 @@
 	nextValue: function(arr_size, coin) {
 	    var i;
 	    var temp = 0;
-	    var temp_index = 0;
-	    // Get the largest in index 0
-	    
-
-        
-        
+	    var temp_index = 0;     
 
         for (i = 0; i < my_array.length; i++) {
 		
@@ -97,19 +82,6 @@
             temp_index++;
         }
         
-        
-        //if(i % denom == 0)
-        //{
-        //   next_val = counter;
-        //   counter++;
-        //}
-         
-		//if (my_array[i] > my_array[0]) {
-		//    temp = my_array[0];
-		//    my_array[0] = my_array[i];
-		//    my_array[i] = temp;
-		//}
-		
 	    }
  
         temp_index = temp_index + 1;
