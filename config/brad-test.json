@@ -1,5 +1,5 @@
 {
-  "title": "Example of My Simple Book",
+  "title": "Test Book",
   "build_dir": "Books",
   "code_dir": "SourceCode/",
   "code_lang": {},
@@ -11,20 +11,26 @@
   "build_JSAV": false,
   "allow_anonymous_credit": true,
   "suppress_todo": false,
-  "glob_exer_options": {
+  "glob_exer_options":{
     "JXOP-debug": "true"
   },
-  "chapters": {
-    "Preface": {
-      "Intro": {
+  "chapters":{
+    "Preface":{
+      "Intro":{
         "long_name": "How to (not) Use this System",
-        "sections": {}
+        "sections":{}
       }
     },
-    "Some AVs": {
-      "Development/brad-test": {
+    "Dynamic Programming": {
+      "Development/brad-test":{
         "long_name": "Example of a Simple Example of Using an Example Slide Show Example",
-        "sections": {}
+        "sections":{}
+      }
+    },
+    "Khaaaaaan!!!!!!!":{
+      "Development/khan-test":{
+        "long_name": "Khan Academy execise of some sort.",
+        "sections":{}
       }
     }
   }

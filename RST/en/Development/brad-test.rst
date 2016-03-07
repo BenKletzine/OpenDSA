@@ -13,9 +13,18 @@ Prototypes
 Algorithmic slide generation
 -----------------------
 
-
 Generates slides while executing the actual algorithm being visualized.
 
-.. inlineav:: brad-test ss
+.. inlineav:: AV/Development/dynamic-programming/brad-test.html ss
    :output: show
 .. odsascript:: AV/Development/dynamic-programming/brad-test.js
+
+
+Khaaaaan!!!!
+-----------------------
+
+Khan Academy stuffs
+
+.. avembed:: Exercises/Development/khan-test.html ka
+	:output: show
+.. odsascript:: AV/Development/dynamic-programming/khan-test.js

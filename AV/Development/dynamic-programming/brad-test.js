@@ -103,13 +103,10 @@ $(document).ready(function () {
             j -= jsCoins[i];
             cntCoins[i]++;
             avArr.highlight(i, j);
-            av.umsg("baH");
+            av.umsg("not-bah");
             av.step();
             style(i, j, s2);
          }
-         
-         
-         
       }
       console.log(cntCoins);
    }
