@@ -10,11 +10,12 @@
     <div class="exercise">
       <div class="vars">
         <var id="arrSize">KhanUtil.randRange(10, 15)</var>  <!-- Change Wanted -->
-		<var id="location">KhanUtil.randRange(2, 8)</var>  <!--What location of array you are at -->
-		<var id="coin">KhanUtil.randRange(1 * KhanUtil.randRange(2,3), 2 * KhanUtil.randRange(2,3))</var>  <!--What denomination you are at -->
-	<var id="lastIndex">arrSize - 1</var>
+		    <var id="location">KhanUtil.randRange(4, 8)</var>  <!--What location of array you are at -->
+		    <var id="coin">KhanUtil.randRange(1 * KhanUtil.randRange(2,3), 2 * KhanUtil.randRange(2,3))</var>  <!--What denomination you are at -->
+	      <var id="lastIndex">arrSize - 1</var>
         <var id="arrValues">thangacadex3.initArr(arrSize, 1)</var>
-		<var id="arrValues2">thangacadex3.initArr2(location, coin)</var>
+		    <var id="arrValues2">thangacadex3.initArr2(location, coin)</var>
+        <var id="JSAV">thangacadex3.initJSAV(arrSize)</var>
         <var id="theAnswer">thangacadex3.nextValue(location, coin)</var>
         <var id="option0">thangacadex3.option[0]</var>
         <var id="option1">thangacadex3.option[1]</var>
@@ -23,20 +24,20 @@
       <div class="problems">
         <div id="Thangacadex3p">
           <p class="question">What is the next value in this list of numbers? </p>
-		  
-	  <p>Change Wanted: <var>arrSize - 1</var> </p> <!-- Display Change wanted -->
-	  <p>Your Denomination: <var>coin</var> </p>  <!--Display denomination -->
-	  <p>First Row:  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <var>arrValues</var></p> 
-      <p>Second Row: &nbsp&nbsp   <var>arrValues2</var></p> 
-	  <!-- <p>Second Row: </p><pre><var>arrValues2</var></pre> -->
+		       <div id="Thangacadex3" class="jsavcanvas"></div>
+	             <p>Change Wanted: <var>lastIndex - 1</var> </p> <!-- Display Change wanted -->
+	             <p>Your Denomination: <var>coin</var> </p>  <!--Display denomination -->
+	             <p>First Row:  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <var>arrValues</var></p> 
+               <p>Second Row: &nbsp&nbsp   <var>arrValues2</var></p> 
+	             <!-- <p>Second Row: </p><pre><var>arrValues2</var></pre> -->
           <div class="solution"> <var>theAnswer</var></div>
-	  <ul class="choices">
-	    <li><var>option0</var></li>
-	    <li><var>option1</var></li>
-	    <li><var>option2</var></li>
-	  </ul>
+	             <ul class="choices">
+	             <li><var>option0</var></li>
+	             <li><var>option1</var></li>
+	             <li><var>option2</var></li>
+	             </ul>
           <div class="hints">
-            <p>Choose something between 0 and index <var>lastIndex</var> </p>
+            <p>How many times does <var>coin</var> go inside <var>location - 1</var> </p>
             <p>This problem is really too easy for a second hint</p>
           </div>
         </div>

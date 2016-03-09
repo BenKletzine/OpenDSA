@@ -1,166 +1,163 @@
 /*global window */
 (function() {
     "use strict";
-    var my_array = [];
+    var my_array1 = [];
+    var my_array2 = []; //array one length
+    var av, jsavArr;
+    var jsArr=[[],[]];
+    
+    //var rows = 2;
+    //var cols;
+    
 	var counter = 0;
-	var temp_index = 0;
+	//var temp_index = 0;
+    var myAnswer = 0;
+    
+    
     
     var thangacadex3 = {
 	
 	option: [0,0,0],
+    
+    initJSAV: function(arr_size)
+    {
+        jsArr[0]=my_array1;
+    jsArr[1]=my_array2;
+        av = new JSAV("Thangacadex3", {animationMode: "none"});
+        jsavArr = av.ds.matrix(jsArr);
+        av.displayInit();
+        av.recorded();
+    },
 
-	// Initialise the exercise
-	initArr: function(arr_size, denom) {
+	// Initialize the exercise
+	initArr: function(arr_size, denom) { //Initialize ones array
 	    var i;
 	    var next_val;
 	    var array_str;
-		//var rand_num = Math.floor(Math.random() * 3 + 1);
-	    my_array = [];
+        //cols = arr_size;
+        //jsArr = initArr(rows,cols);
+
+	    my_array1 = [];
 	    for (i = 0; i < arr_size - 1; i++) {
 		
-		
-		next_val = denom * i;
-		
-		//if(next_val % arr_size == 0)
-		//{
-		//   counter++;
-		//   next_Val = counter;
-		//}
-		
-		
-		
-		//next_val = i;
-		//next_val = Math.floor(Math.random() * 1000 + 1);
-		while (my_array.includes(next_val))
-            next_val = denom * i;
-		    //next_val = Math.floor(Math.random() * 1000 + 1);
-		my_array.push(next_val);
-		console.log(" " + next_val);
+		    next_val = denom * i;
+
+		    while (my_array1.includes(next_val))
+                next_val = denom * i;
+
+		    my_array1.push(next_val);
+		    console.log(" " + next_val);
 	    }
 	    array_str = "";
 	    for (i = 0; i < arr_size - 1; i++) {
-		array_str = array_str + " " + my_array[i];
+		    array_str = array_str + " " + my_array1[i];
 	    }
 	    console.log(array_str);
 	    return array_str;
 	},
 
-	initArr2: function(arr_size, denom) {
+	initArr2: function(loc, denom) {
 	    var i;
 	    var next_val = 0;
 	    var array_str;
         counter = 0;
+        myAnswer = 0;
 		//var rand_num = Math.floor(Math.random() * 3 + 1);
-	    my_array = [];
+	    my_array2 = [];
         //my_array.push(0);
-	    for (i = 0; i < arr_size - 1; i++) {
+	    for (i = 0; i < loc - 1; i++) {
 
-		if(i % denom == 0)
-        {
-           next_val = counter;
-           counter++;
-           
-        }
-        else
-        {
-		    next_val++;
-        }
-
-		my_array.push(next_val);
-		console.log(" " + next_val);
+           // if(i = 0)
+           // {
+           //     next_val = 0;
+           // }   
+		    if(i % denom == 0)
+            {
+               next_val = counter;
+               counter++;
+            }
+            else
+            {
+		        next_val++;
+            }
+ 
+		    my_array2.push(next_val);
+		    console.log(" " + next_val);
 	    }
 	    array_str = "";
-	    for (i = 0; i < arr_size - 1; i++) {
-		array_str = array_str + " " + my_array[i];
+	    for (i = 0; i < loc - 1; i++) {
+		    array_str = array_str + " " + my_array2[i];
 	    }
+        
+        myAnswer = next_val;
+        
 	    console.log(array_str);
 	    return array_str;
 	},
 	
-	nextValue: function(arr_size, denom) {
-	    var i;
+	nextValue: function(loc, denom) {
+	    //var i;
 	    var temp = 0;
 	    var temp_index = 0;
-	    // Get the largest in index 0
+        //var divide = 0;
+        myAnswer++;
+        
+        //if(my_array1[loc-1] > myAnswer && denom > myAnswer)
+        //{
+        //    my_array2[0] = my_array2[loc-1] + 1;
+        //}
+        
+        
+        if(loc == denom)
+        {
+            //divide = arr_size/ denom;
+            counter++;
+            myAnswer = counter;
+        }
+        else if(loc > denom) 
+        {
+            //counter++;
+            myAnswer = counter;
+        }
+            my_array2[0] = myAnswer;
+        
+        
 
-        //for (i = 0; i < my_array.length - 1; i++) {
 		
-		
-		/*for (i = 0; i < arr_size; i++) {
+	    temp_index = Math.floor(Math.random() * (my_array2.length-1)) + 1;
+	    temp = my_array2[1];
+	    my_array2[1] = my_array2[temp_index];
+	    my_array2[temp_index] = temp;
 
-		if(i % denom == 0)
+	    temp_index = Math.floor(Math.random() * (my_array2.length-2)) + 2;
+	    temp = my_array2[2];
+	    my_array2[2] = my_array2[temp_index];
+	    my_array2[temp_index] = temp;
+
+	    temp_index = Math.floor(Math.random() * (my_array2.length-3)) + 3;
+	    temp = my_array2[3];
+	    my_array2[3] = my_array2[temp_index];
+	    my_array2[temp_index] = temp;
+        
+        if(!my_array2[1])
         {
-           temp_index = counter;
-           counter++;
-        }
-        else
-        {
-		    temp_index++;
-        }
-		
-		}*/
-		
-        if(my_array[my_array.length - 1] + 1 % denom == 0)
-        {
-		    counter++;
-            temp_index = counter;
-			
-            //temp++;
-        }
-        else
-        {
-            temp_index = my_array[my_array.length];
-			temp_index++;
-			//my_array[0] = temp_index;
-			//counter = temp_index;
+            my_array2[1] = 2;
         }
         
-        my_array[0] = counter;
-        //if(i % denom == 0)
-        //{
-        //   next_val = counter;
-        //   counter++;
-        //}
-         
-		//if (my_array[i] > my_array[0]) {
-		//    temp = my_array[0];
-		//    my_array[0] = my_array[i];
-		//    my_array[i] = temp;
-		//}
-		
-	    //}
-        //my_array.push(temp_index);
-		//my_array[0] = temp_index;
-		
-        //temp_index = temp_index + 1;
+        if(!my_array2[2])
+        {
+            my_array2[2] = 3;
+        }
         
-        //if(temp_index % coin == 0)
-        //{
-        //    temp++;
-        //}
+        if(!my_array2[3])
+        {
+            my_array2[3] = 4;
+        }
 
-	    // The largest is now in index 0.
-	    // Get our three options in index 1, 2, 3
-		
-	    temp_index = Math.floor(Math.random() * (my_array.length-1)) + 1;
-	    temp = my_array[1];
-	    my_array[1] = my_array[temp_index];
-	    my_array[temp_index] = temp;
-
-	    temp_index = Math.floor(Math.random() * (my_array.length-2)) + 2;
-	    temp = my_array[2];
-	    my_array[2] = my_array[temp_index];
-	    my_array[temp_index] = temp;
-
-	    temp_index = Math.floor(Math.random() * (my_array.length-3)) + 3;
-	    temp = my_array[3];
-	    my_array[3] = my_array[temp_index];
-	    my_array[temp_index] = temp;
-
-	    thangacadex3.option[0] = my_array[3];
-	    thangacadex3.option[1] = my_array[2];
-	    thangacadex3.option[2] = my_array[1];
-	    return my_array[0];
+	    thangacadex3.option[0] = my_array2[1];
+	    thangacadex3.option[1] = my_array2[2];
+	    thangacadex3.option[2] = my_array2[3];
+	    return my_array2[0];
 		
 	},
 
