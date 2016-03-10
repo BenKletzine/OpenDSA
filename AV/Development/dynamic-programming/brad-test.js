@@ -1,11 +1,13 @@
 "use strict";
 
 $(document).ready(function () {
-   var s0 = {"background-color":"lightgray"};
-   var s1 = {"background-color":"sandybrown"};
-   var s2 = {"background-color":"skyblue"};
-   var s3 = {"background-color":"lightgreen"};
-   var s4 = {"background-color":"violet"};
+   var style_default = {"background-color":"lightgray"};
+   var style_reject = {"background-color":"lightred"};
+   var style_accept = {"background-color":"lightgreen"};
+   var style_highlight = {"background-color":"yellow"};
+   var style_current = {"background-color":"lightteal"};
+   //var style_test = {"background-color":"blue"};
+   //var style_path = {"background-color":"lightgreen"};
 
    //js vars
    var amount = 13;
@@ -51,7 +53,7 @@ $(document).ready(function () {
    /*Initialize matrix based on number of coins and amount of change*/
    function arrInit(coins, amt){
       var arr = [];
-      for (var i = 0; i < coins; i++) {
+      for (var i = 0; i < coins; i++){
          arr[i] = new Array(amount + 1);
       }
       return arr;
@@ -60,30 +62,98 @@ $(document).ready(function () {
    /*Compute solution and generate slides at specified indexes*/
    function getCha(amt, show){
       var cnt = 0;
-      for (var i = 0; i < jsArr.length; ++i) {
-         for (var j = 0; j < jsArr[i].length && j <= amt; ++j) {
-            //get optimals for using(left) and not using(above) current coin
-            var above = i > 0 ? jsArr[i-1][j] : 1337;
-            var left = j == 0 ? -1 : j >= jsCoins[i] ? jsArr[i][j-jsCoins[i]] : 1337;
+      var above = 0;
+      var left = 0;
+
+
+      for (var i = 0; i < jsArr.length; ++i){
+         for (var j = 0; j < jsArr[i].length && j <= amt; ++j){
+            above = left = 1337;
+
+            style(i, j, style_highlight);
+            slide("Finding optimal solution for next cell.");
+            style(i, j, style_default);
+
+            //get optimals for using (left) and not-using (above) the current coin
+            //var above = i > 0 ? jsArr[i-1][j] : 1337;
+            if(i > 0){
+               above = jsArr[i-1][j];
+
+               style(i - 1, j, style_highlight);
+               slide("Look 'above' for optimal solution without this coin.");
+               //style(i - 1, j, style_current);
+            }else{
+               above = 1337;
+               slide("This is the first coin, so there is no solution without this coin.");
+            }
+            //var left = j == 0 ? -1 : j >= jsCoins[i] ? jsArr[i][j-jsCoins[i]] : 1337;
+            if(j == 0){
+               left = 0;
+               slide("Amount of change is 0, so no coins are used. (base case)");
+            }else if(j >= jsCoins[i]){
+               left = jsArr[i][j-jsCoins[i]] + 1;
+
+               style(i, j-jsCoins[i], style_highlight);
+               slide("Look 'left' for solution. (current amount minus coin value)");
+               //style(i, j-jsCoins[i], style_default);
+            }else{
+               left = 1337;
+               slide("Coin value is greater than current amount, so no solution is possible with this coin.");
+            }
+            
 
             //choose better option and update js *AND* av arrays
-            jsArr[i][j] = above > left ? left + 1 : above;
-            avArr.value(i, j, jsArr[i][j]);
+            //jsArr[i][j] = above > left ? left + 1 : above;
+            if(left <= above){
+               jsArr[i][j] = left;
+               avArr.value(i, j, left);
 
-            console.log("cnt: " + cnt + "\n");
+               style(i - 1, j, style_reject);
+               style(i, j-jsCoins[i], style_accept);
+               slide("Optimal solution uses this coin. (left + 1)");
+            }else{
+               jsArr[i][j] = above;
+               avArr.value(i, j, above);
 
-            //only add msg and step if a slide is desired
+               style(i - 1, j, style_accept);
+               style(i, j-jsCoins[i], style_reject);
+               slide("Optimal solution does not use this coin. (above)");
+            }
+            //set default style
+            style(i - 1, j, style_default);
+            style(i, j-jsCoins[i], style_default);
+            //style(i, j, style_default);
+
+            console.log("frame: " + cnt + "\n");            
+            //consume frame marker if slide was generated
             if(cnt++ == show[0]){
-               /*apply "looking at" style here*/
-               avArr.highlight(i, j);
-               av.umsg("coin: " + jsCoins[i] + "; index: " + i + "," + j);
-               av.step();
                show.shift();
             }
-
-            //apply "completed" style
-            style(i, j, s0);
          }
+      }
+
+      //only add msg and step if a slide is desired
+      function slide(msg){
+         if(cnt != show[0]) return;
+
+         var abv = above == 1337 ? "-" : above;
+         var lft = left == 1337 ? "-" : left;
+         var tbl = ["", "", "", ""];
+         var td = "&nbsp&nbsp</td>"
+
+         tbl[0] = "<td>Amount of change:" + td + "<td>" + j + td;
+         tbl[1] = "<td>Coin value:" + td + "<td>" + jsCoins[i] + td;
+         tbl[2] = "<td>Don't use coin (above):" + td + "<td>" + abv + td;
+         tbl[3] = "<td>Do use coin (left):" + td + "<td>" + lft + td;
+         
+         msg = "<table>"
+            + "<tr>" + tbl[0] + tbl[1] + "</tr>"
+            + "<tr>" + tbl[2] + tbl[3] + "</tr>"
+            + "</table>" + msg;
+
+         
+         av.umsg(msg);
+         av.step();
       }
    }
 
@@ -92,20 +162,35 @@ $(document).ready(function () {
       var i = jsArr.length - 1;
       var j = jsArr[0].length - 1;
 
+      //style(i, j, style_highlight);
+      av.umsg("Time to backtrack!");
+      av.step();
+
       while(j > 0){
+         style(i-1, j, style_highlight);
+         style(i, j-jsCoins[i], style_highlight);
+         av.umsg("checking");
+         av.step();
+         
          if(i > 0 && jsArr[i][j] == jsArr[i-1][j]){
+            style(i-1, j, style_accept);
+            style(i, j-jsCoins[i], style_reject);
+            av.umsg("up");
+            av.step();
+            //style(i-1, j, style_default);
+            //style(i, j-jsCoins[i], style_default);
+
             i--;
-            avArr.highlight(i, j);
-            av.umsg("baH");
-            av.step();
-            style(i, j, s3);
          }else{
-            j -= jsCoins[i];
-            cntCoins[i]++;
-            avArr.highlight(i, j);
-            av.umsg("not-bah");
+            style(i-1, j, style_reject);
+            style(i, j-jsCoins[i], style_accept);
+            av.umsg("left");
             av.step();
-            style(i, j, s2);
+            //style(i-1, j, style_default);
+            //style(i, j-jsCoins[i], style_default);
+
+            cntCoins[i]++;
+            j -= jsCoins[i];
          }
       }
       console.log(cntCoins);
@@ -113,8 +198,9 @@ $(document).ready(function () {
 
    /*Index [i][j] is highlighted and has style s applied*/
    function style(i, j, s){
-      
-      avArr.unhighlight(i, j);
+      if(i < 0 || j < 0){
+         return;
+      }
       avArr.css(i, j, s);
    }
 });

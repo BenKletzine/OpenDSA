@@ -22,14 +22,8 @@
       }
     },
     "Dynamic Programming": {
-      "Development/brad-test":{
-        "long_name": "Example of a Simple Example of Using an Example Slide Show Example",
-        "sections":{}
-      }
-    },
-    "Khaaaaaan!!!!!!!":{
-      "Development/khan-test":{
-        "long_name": "Khan Academy execise of some sort.",
+      "Development/brad-test": {
+        "long_name": "Example of an Example of Using an Example Slide Show Example",
         "sections":{}
       }
     }
