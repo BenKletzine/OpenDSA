@@ -302,7 +302,7 @@ ThangArraySwap: min
 	python $(CONFIG_SCRIPT) config/ThangArraySwap.json 
 
 Thangem: min
-	python $(CONFIG_SCRIPT) config/Thangem.json
+	python $(CONFIG_SCRIPT) config/Thangem.json --local
 	
 thangacad: min
 	python $(CONFIG_SCRIPT) config/thangacad.json --local
