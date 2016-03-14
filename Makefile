@@ -294,6 +294,9 @@ slides: min
 	
 brad-test: min
 	python $(CONFIG_SCRIPT) config/brad-test.json --local
+
+dynamic-programming: min
+	python $(CONFIG_SCRIPT) config/dynamic-programming.json --local
 	
 MinChange: min
 	python $(CONFIG_SCRIPT) config/MinChange.json
