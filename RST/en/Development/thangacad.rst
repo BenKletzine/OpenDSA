@@ -4,60 +4,50 @@
 .. distributed under an MIT open source license.
 
 .. avmetadata:: 
-   :author: Thang Lor
+   :author: Thang, Brad, and Ben
 
 =====================================================================
-Illustrate slide shows and KA exercises in an OpenDSA learning module
+Introduction: Dynamic Programming - Minimum Coin Change
 =====================================================================
 
-Swapping array elements
------------------------
+Overview of Dynamic Programming and Minimum Coin Change
+-------------------------------------------------------
+In this section of Dynamic Programming we will be discussing about the
+minmum coin change problem.
 
+Dynamic Programming is a method that solves complex problems by breaking
+them down into smaller and simpler problems. When solving these smaller
+subproblems we will store its solution to be used  in the same subproblem
+instead of resolving its solution again. This can save us a lot of time.
 
-The following slideshow demonstrates how, starting with a slideshow
-like you worked with in the first week's lab, you can incorporate it into a
-learning module as an inlineav.
+Minimum coin change problem is a problem in which an individual is asked to 
+make change using the minimum number of coins using a set of denominations.
+Here is an example.
 
-.. inlineav:: thangacad1 ss
+.. inlineav:: brad-test ss
    :output: show
 
-Swapping array elements with a reset button 
--------------------------------------------
+Minimum Coin Change with User Input
+-----------------------------------
 
-Here we have the same visualization as in the previous inlineav, but
-now as an embedded AV.  Although it is slightly more complicated this
-way, it allows us to process input from the user on the embedded page.
-Here the user can enter a space-separated list of numbers, or if they
-choose to not do so, an OpenDSA utility randomly generates them for
-the user.
+Previously we had the inlineav where the inputs are random and the 
+user is just given a matrix. In this next set of visualization we 
+have an embedded AV where it will allow us to process input from
+the user. 
+Try it out for yourself!
 
 
 .. avembed:: AV/Development/thangacad2.html ss
 
-
-A Khan Academy Exericse with JSAV object
-----------------------------------------
-
-This example shows how to embed a Khan Academy exercise that has the user identify the 
-maximum by clicking on a JSAV array cell.
-
-.. avembed:: Exercises/Development/Thangacadex1.html ka
-
-A Khan Academy Exericse with Fill-in-the-blank Question
--------------------------------------------------------
-
-This example shows how to embed a Khan Academy exercise that has the user identify the 
-maximum by typing the number into a text box.
-
-.. avembed:: Exercises/Development/Thangacadex2.html ka
-
-A Khan Academy Exericse with Multiple Choice Question
+Minimum Coin Change Question
 -----------------------------------------------------
 
-This example shows how to embed a Khan Academy exercise that has the user identify the 
-maximum by picking it from a multiple-choice list.
+Here we have an exercise for you to try. The change wanted is
+displayed as well as the denomination. You are to determine the 
+next value in the matrix by using what you've learned. If you 
+are stuck try using a hint.
 
 .. avembed:: Exercises/Development/Thangacadex3.html ka
 
 
-.. odsascript:: AV/Development/thangacad1.js
+.. odsascript:: AV/Development/dynamic-programming/brad-test.js
