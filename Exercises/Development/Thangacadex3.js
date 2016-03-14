@@ -28,12 +28,11 @@
         jsArr[1]=my_array2;
         av = new JSAV("Thangacadex3", {animationMode: "none"});
         jsavArr = av.ds.matrix(jsArr);
+        //jsavArr.highlight(1,array2length);
+		jsavArr.css(1, array2length, style_highlight);
         av.displayInit();
         av.recorded();
-        
-        //jsArr.css(0,0, style_highlight);
-        
-        
+		
     },
 
 	// Initialize the exercise
