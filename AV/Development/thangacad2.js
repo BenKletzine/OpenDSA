@@ -57,7 +57,7 @@ function help() {
 }
   
 // Initialize the arraysize dropdown list
-ODSA.AV.initArraySize(6, 12, 6); // Between 10 and 16, with default at 12
+ODSA.AV.initArraySize(5, 10, 7); // Between 10 and 16, with default at 12
 
 
 // Connect action callbacks to the HTML entities
