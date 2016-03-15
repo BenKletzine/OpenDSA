@@ -14,9 +14,9 @@ Overview
 --------
 Dynamic programming is a strategy for solving problems that can be broken up into overlapping subproblems.
 
-def operlapping subs
+The term *overlapping subproblems* refers to a situation in which breaking a problem into subproblems results in many of the subproblems being identical to one another. The implication of this situation is that by computing the same subproblems multiple times, we are redoing work that has already been done, and are therefore wasting processing resources.
 
-desc dp strat for subs
+The fundamental principle motivating dynamic programming is the elimination of this duplicated work. Dynamic programming accomplishes this by storing the solutions to subproblems the first time they are solved, then subsequently checking for stored solutions before solving each subproblem. In so doing, dynamic programming trades some space in order to realze an improvement in execution time. 
 
 Case Study: Optimal Change-Making Algorithm
 -------------------------------------------
@@ -56,15 +56,16 @@ For the optimal change-making algorithm, there can be a significant amount of ov
 3. Increment the counter for the coin that produced the best result
 4. Return solution
 
-
-
 Optimal Change-Making Example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Consider the following example which demonstrates a dynamic-programming implementation of the optimal change-making algorithm:
 
 .. inlineav:: brad-test ss
    :output: show
-.. odsascript:: AV/Development/dynamic-programming/brad-test.js
 
 Exercises
 ---------
+Don't fail!
+
+.. avembed:: Exercises/Development/Thangacadex3.html ka
+.. odsascript:: AV/Development/dynamic-programming/brad-test.js
