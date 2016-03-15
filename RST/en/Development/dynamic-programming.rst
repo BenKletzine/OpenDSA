@@ -40,11 +40,11 @@ A simple algorithm to solve the problem:
 
 The *big-Oh* runtime of this algorithm is exponential: c^a, where c is the number of coins and a is the amount of change to make. The algorithm must branch for each coin, and it will do this, in the theoretical worst case, a number of times equal to the amount of change being made.
 
-The Dynamic Programming Approach
+A Dynamic Programming Approach
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-For the optimal change-making algorithm, there can be a significant amount of overlap in the subproblems, which makes it an excellent candidate for a dynamic programming solution.
+For the optimal change-making algorithm, there can be a significant amount of overlap in the subproblems, making it an excellent candidate for a dynamic programming solution. In this particular example we will take a "tabular" or "bottom-up" approach wherein we fill a 2-dimensional array with optimal solutions for the sub-problems.
 
-1. Begin with the desired amount of change
+1. 
 2. For each coin:
 
 	a. Subtract the coin's value from the amount
@@ -62,10 +62,15 @@ Consider the following example which demonstrates a dynamic-programming implemen
 
 .. inlineav:: brad-test ss
    :output: show
+.. odsascript:: AV/Development/dynamic-programming/brad-test.js
 
 Exercises
 ---------
 Don't fail!
 
 .. avembed:: Exercises/Development/Thangacadex3.html ka
-.. odsascript:: AV/Development/dynamic-programming/brad-test.js
+
+embedded here
+--------------
+something
+

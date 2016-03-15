@@ -1,44 +1,30 @@
 "use strict";
 
 $(document).ready(function () {
+   const DEBUG = true;
    const INVALID = 1337;
 
-   var style_default = {"background-color":"white"};
-   var style_highlight = {"background-color":"yellow"};
-   var style_current = {"background-color":"lightgray"};
-   var style_reject = {"background-color":"lightred"};
-   var style_accept = {"background-color":"lightgreen"};
+   //define css styles
+   const style_default = {"background-color":"white"};
+   const style_focus = {"background-color":"yellow"};
+   const style_current = {"background-color":"lightgray"};
+   const style_reject = {"background-color":"salmon"};
+   const style_accept = {"background-color":"lightgreen"};
 
+   /*creates a 3-tuple closure*/
+   function makeStyle(a, b, c){
+      var s = [a, b, c];
+      return function(){return s;};
+   }
 
-   var styles_default = [];
-   styles_default[0] = styles_default[1] = styles_default[2] = style_default;
-
-   var styles_begin = [];
-   styles_begin[0] = style_highlight;
-   styles_begin[1] = styles_begin[2] = style_default;
-
-   var styles_look = [];
-   styles_look[0] = style_current;
-   styles_look[1] = styles_look[2] = style_highlight;
-
-   var styles_above = [];
-   styles_above[0] = style_current;
-   styles_above[1] = style_accept;
-   styles_above[2] = style_reject;
-
-   var styles_left = [];
-   styles_left[0] = style_current;
-   styles_left[1] = style_reject;
-   styles_left[2] = style_accept;
-
-   //var styles_default = [style_default, style_default, style_default];
-   //var styles_begin = [style_highlight, style_default, style_default];
-   //var styles_look = [style_current, style_highlight, style_highlight];
-   //var styles_above = [style_current, style_accept, style_reject];
-   //var styles_left = [style_current, style_reject, style_accept];
+   //define style groups as 3-tuple closures via makeStyle
+   var defaultStyle = makeStyle(style_default, style_default, style_default)();
+   var lookingStyle = makeStyle(style_current, style_focus, style_focus)();
+   var aboveStyle = makeStyle(style_current, style_accept, style_reject)();
+   var leftStyle = makeStyle(style_current, style_reject, style_accept)();
 
    //js vars
-   var amount = 13;
+   var amount = 12;
    var jsCoins = [1,3,5]; //getCoins();
    var jsArr = arrInit(jsCoins.length, amount);
    var slides = [0,12,13,14,15,16,17,18,27,28,32,33,41];
@@ -51,15 +37,10 @@ $(document).ready(function () {
    //first slide
    av.umsg("OMG DYNAMIC PROGRAMMING!!1");
    av.displayInit();
-   //end first slide
-
+   //fill change matrix
    getCha(amount, slides);
-   // new slide
+   //backtrack optimal solution
    backtrack();
-
-   av.umsg("execution complete");
-   av.step();
-
    // last slide
    av.umsg("that's all, folks");
    av.recorded();
@@ -88,20 +69,10 @@ $(document).ready(function () {
       for (var i = 0; i < jsArr.length; ++i){
          for (var j = 0; j < jsArr[i].length && j <= amt; ++j){
             above = left = INVALID;
-            style(i, j, styles_begin);
-            slide("Finding optimal solution for next cell.");
-
             //get optimals for using (left) and not-using (above) the current coin
-            //var above = i > 0 ? jsArr[i-1][j] : INVALID;
-            if(i > 0){
-               above = jsArr[i-1][j];
-               //slide("Look 'above' for optimal solution without this coin.");
-            }else{
-               above = INVALID;
-               //slide("This is the first coin, so there is no solution without this coin.");
-            }
+            var above = i > 0 ? jsArr[i-1][j] : INVALID;
 
-            //var left = j == 0 ? -1 : j >= jsCoins[i] ? jsArr[i][j-jsCoins[i]] : INVALID;
+            //var left = j == 0 ? 0 : j >= jsCoins[i] ? jsArr[i][j-jsCoins[i]] : INVALID;
             if(j == 0){
                left = 0;
                //slide("Amount of change is 0, so no coins are used. (base case)");
@@ -112,30 +83,26 @@ $(document).ready(function () {
                left = INVALID;
                //slide("Coin value is greater than current amount, so no solution is possible with this coin.");
             }
-            style(i, j, styles_look);
-            slide("looking");
+            slide("looking", lookingStyle);
 
-
-            //choose better option and update js *AND* av arrays
-            //jsArr[i][j] = above > left ? left + 1 : above;
+            //choose between left or above
             if(left <= above){
                jsArr[i][j] = left;
                avArr.value(i, j, left);
 
-               style(i, j, styles_left);
-               // slide("Optimal solution uses this coin. (left + 1)");
+               slide("Optimal solution uses this coin, go left.", leftStyle);
             }else{
                jsArr[i][j] = above;
                avArr.value(i, j, above);
 
-               style(i, j, styles_above);
-               // slide("Optimal solution does not use this coin. (above)");
+               slide("Optimal solution does not use this coin, go above", aboveStyle);
             }
-            slide("choose");
-            //set default style
-            style(i, j, styles_default);
 
-            console.log("frame: " + cnt + "\n");            
+            //set default style before moving to next frame
+            style(i, j, defaultStyle);
+
+            if(DEBUG) console.log("frame: " + cnt + "\n");
+
             //consume frame marker if slide was generated
             if(cnt++ == show[0]){
                show.shift();
@@ -143,25 +110,27 @@ $(document).ready(function () {
          }
       }
 
-      function slide(msg){
+      function slide(msg, s){
          //only add msg and step if a slide is desired
          if(cnt != show[0]) return;
-
+         //check that i and j are in valid range
          var abv = above == INVALID ? "---" : above;
          var lft = left == INVALID ? "---" : left;
+         //add common output info
          var tbl = ["", "", "", ""];
          var td = "&nbsp&nbsp</td>"
-
          tbl[0] = "<td>Amount of change:" + td + "<td>" + j + td;
          tbl[1] = "<td>Coin value:" + td + "<td>" + jsCoins[i] + td;
          tbl[2] = "<td>Don't use coin (above):" + td + "<td>" + abv + td;
          tbl[3] = "<td>Do use coin (left):" + td + "<td>" + lft + td;
-         
+         //append slide msg
          msg = "<table>"
             + "<tr>" + tbl[0] + tbl[1] + "</tr>"
             + "<tr>" + tbl[2] + tbl[3] + "</tr>"
             + "</table>" + msg;
-        
+         //apply style
+         style(i, j, s);
+         //generate slide
          av.umsg(msg);
          av.step();
       }
@@ -196,33 +165,28 @@ $(document).ready(function () {
       var i = jsArr.length - 1;
       var j = jsArr[0].length - 1;
 
-      //style(i, j, style_highlight);
+      //style(i, j, style_focus);
       av.umsg("Time to backtrack!");
       av.step();
 
       while(j > 0){
-         // style(i-1, j, style_highlight);
-         // style(i, j-jsCoins[i], style_highlight);
+         // style(i-1, j, style_focus);
+         // style(i, j-jsCoins[i], style_focus);
+         style(i, j, lookingStyle);
          av.umsg("checking");
          av.step();
          
          if(i > 0 && jsArr[i][j] == jsArr[i-1][j]){
-            // style(i-1, j, style_accept);
-            // style(i, j-jsCoins[i], style_reject);
+            style(i, j, aboveStyle);
             av.umsg("up");
             av.step();
-            //style(i-1, j, style_default);
-            //style(i, j-jsCoins[i], style_default);
-
+            //move up
             i--;
          }else{
-            // style(i-1, j, style_reject);
-            // style(i, j-jsCoins[i], style_accept);
+            style(i, j, leftStyle);
             av.umsg("left");
             av.step();
-            //style(i-1, j, style_default);
-            //style(i, j-jsCoins[i], style_default);
-
+            //move left
             cntCoins[i]++;
             j -= jsCoins[i];
          }
@@ -231,16 +195,16 @@ $(document).ready(function () {
    }
 
    /*Index [i][j] is highlighted and has style s applied*/
-   function style(i, j, styles){
-      avArr.css(i, j, styles[0]);
-      if(i >= 1) avArr.css(i-1, j, styles[1]);
-      if(j >= jsCoins[i]) avArr.css(i, j-jsCoins[i], styles[2]);
+   function style(i, j, s){
+      avArr.css(i, j, s[0]);
+      if(i >= 1) avArr.css(i-1, j, s[1]);
+      if(j >= jsCoins[i]) avArr.css(i, j-jsCoins[i], s[2]);
    }
 
-   function xxstyle(i, j, s){
-      if(i < 0 || j < 0){
-         return;
-      }
-      avArr.css(i, j, s);
-   }
+   // function xxstyle(i, j, s){
+   //    if(i < 0 || j < 0){
+   //       return;
+   //    }
+   //    avArr.css(i, j, s);
+   // }
 });
