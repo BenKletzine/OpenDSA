@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html data-require="jsav math Thangacadex3">
   <head>
-    <title>Pick the next using multiple-choice</title>
+    <title>Minimum Change - Multiple Choice</title>
     <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
     <script src="../../khan-exercises/local-only/main.js" ></script>
   </head>
@@ -15,7 +15,6 @@
 	      <var id="lastIndex">arrSize - 1</var>
         <var id="arrValues">thangacadex3.initArr(arrSize, 1)</var>
 		    <var id="arrValues2">thangacadex3.initArr2(location, coin)</var>
-        <!-- <var id="STYLE">thangacadex3.initStyle()</var> -->
         <var id="JSAV">thangacadex3.initJSAV(arrSize)</var>
         <var id="theAnswer">thangacadex3.nextValue(location, coin)</var>
         <var id="option0">thangacadex3.option[0]</var>
@@ -36,7 +35,8 @@
 	             <li><var>option2</var></li>
 	             </ul>
           <div class="hints">
-		    <p>Current solution is <var>location - 1</var>, find Left solution, which one is optimal?</p>
+		        <p>If your change is higher than the current solution then just add ones until you get your optimal solution.</p>
+            <p>Current solution is <var>location - 1</var>, find Left solution, which one is optimal?</p>
             <p>Left solution = (Go left <var>coin</var> times and get its value) now add +1</p>
 		  </div>
         </div>

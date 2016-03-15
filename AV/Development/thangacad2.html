@@ -27,15 +27,26 @@
 
   <form id="ssperform">
     <p>
-      <input type="button" id="runit" name="runit" value="Run" />
-      <input type="button" id="reset" name="reset" value="Reset" />
-      <label id="arraysizeLabel" for="arraysize"></label>
-      <select id="arraysize"></select>
+      <!--<label  id="arraysizeLabel" for="arraysize">Total Amount:</label>
+		  <select id="arraysize"></select>-->
     </p>
     <p>
-      <label id="arrayValuesLabel" for="arrayValues"></label>
-      <input size="60" name="arrayValues" id="arrayValues" type="text" />
+       <label id="totalAmountLabel" for="totalAmount">Total Amount:</label>
+       <input type="text" name="totalAmount" id="totalAmount" size="1" />
+       <!--<input type="button" id="changeTen" name="changeTen" value="10" onclick="changeTen()" />
+       <input type="button" id="changeNine" name="changeNine" value="9" onclick="changeNine()" />
+       <input type="button" id="changeEight" name="changeEight" value ="8" onclick= "changeEight()"/>-->
     </p>
+    <p>
+       <label id="denominationLabel" for="denomination">Denominations:</label>
+       <input type="text" name="denomination" id="denomination" size="3" />
+    </p>
+    
+    <p>
+        <input type="button" id="runit" name="runit" value="Run" />
+        <input type="button" id="reset" name="reset" value="Reset" />
+    </p>
+    
   </form>
 
   <div class="avcontainer">
