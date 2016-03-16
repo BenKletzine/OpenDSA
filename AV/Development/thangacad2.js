@@ -19,9 +19,9 @@
    const style_reject = {"background-color":"salmon"};
    const style_accept = {"background-color":"lightgreen"};
   
-     function makeStyle(a, b, c){
-      var s = [a, b, c];
-      return function(){return s;};
+   function makeStyle(a, b, c){
+     var s = [a, b, c];
+     return function(){return s;};
    }
   
    var defaultStyle = makeStyle(style_default, style_default, style_default)();
@@ -31,44 +31,42 @@
    var leftStyle = makeStyle(style_current, style_reject, style_accept)();
    
   
-  
-  
-  //var jsArr=[[],[]];
-  
 function runit() {
     ODSA.AV.reset(true);
-    //var theArray = [];
 
     amount = document.getElementById("totalAmount").value;
     denom = document.getElementById("denomination").value.trim().split(" ");
 
+    var total = parseInt(amount);
+
     //set size for total amount
-    if(amount > 14 || amount < 8)
+    if(total > 14 || total < 8)
     {
-        amount = 10;
+        total = 10;
     }
     //set size for denom
     
-    for(var i=0; i < denom.length; i++)
+    jsCoins[0] = 1;
+    
+    var length = denom.length;
+    
+    if(length > 4)
     {
-        jsCoins[i] = denom[i];
-       // console.log(jsCoins[i]);
+      length = 3;
     }
     
-    //for(var i = 0; i < amount; i++)
-    //{
-     //   theArray.push(i);
-    //}
+    for(var i=1; i < length + 1; i++)
+    {
+        jsCoins[i] = denom[i - 1];
+    }
+    
     
     for(var i =0; i< 100; i++)
     {
-      slides[i] = i;
+        slides[i] = i;
     }
     
-    console.log(jsCoins.length);
-    console.log(amount);
-    
-    jsMatrix = arrInit(jsCoins.length, amount);
+    jsMatrix = arrInit(jsCoins.length, total);
     
     //console.log(jsMatrix.length);
     
@@ -78,12 +76,15 @@ function runit() {
     avCoins = av.ds.array(jsCoins, {"layout":"vertical",
       "relativeTo":avMatrix, "anchor":"left center", "myAnchor":"right center"});
     
-    av.umsg("Test1");
+    
+    console.log(avMatrix.length);
+    
+    av.umsg("Minimum CHANGE!!");
     av.displayInit();
     
-    getCha(amount, slides);
+    getCha(total, slides);
     
-    //backtrack();
+    backtrack();
     
     av.umsg("that's all, folks");
     av.recorded();
@@ -101,7 +102,7 @@ function help() {
 function arrInit(coins, amt){
    var arr = [];
    for(var i = 0; i < coins; ++i){
-      arr[i] = new Array(amount + 1);
+      arr[i] = new Array(amt + 1);
    }
    return arr;
 }
@@ -213,9 +214,6 @@ ODSA.AV.initArraySize(7, 13, 10);
 
 
 // Connect action callbacks to the HTML entities
-//$('#Eight').click(changeEight);
-//$('#Nine').click(changeNine);
-//$('#Ten').click(changeTen);
 $('#about').click(about);
 $('#runit').click(runit);
 $('#help').click(help);
