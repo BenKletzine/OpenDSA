@@ -11,7 +11,8 @@
     "use strict";
     var my_array1 = [];
     var my_array2 = []; //use array one length
-    var av, jsavArr;
+    var av, avCoins, jsavArr;
+    var jsCoins;
     var jsArr=[[],[]];
     var array2length;
     
@@ -22,12 +23,23 @@
 	
 	option: [0,0,0],
     
-    initJSAV: function(arr_size)
+    initJSAV: function(arr_size, denom)
     {
+        jsCoins = [];
+        
+        jsCoins[0] = 1;
+        jsCoins[1] = denom;
+        
         jsArr[0]=my_array1;
         jsArr[1]=my_array2;
+        
         av = new JSAV("Thangacadex3", {animationMode: "none"});
         jsavArr = av.ds.matrix(jsArr);
+        
+                
+        avCoins = av.ds.array(jsCoins, {"layout":"vertical",
+           "relativeTo":jsavArr, "anchor":"left center", "myAnchor":"right center"});
+           
         //jsavArr.highlight(1,array2length);
 		jsavArr.css(1, array2length, style_highlight);
         av.displayInit();
