@@ -38,7 +38,7 @@
         
                 
         avCoins = av.ds.array(jsCoins, {"layout":"vertical",
-           "relativeTo":jsavArr, "anchor":"left center", "myAnchor":"right center"});
+           "relativeTo":jsavArr, "anchor":"left top", "myAnchor":"right top"});
            
         //jsavArr.highlight(1,array2length);
 		jsavArr.css(1, array2length, style_highlight);

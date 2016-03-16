@@ -63,7 +63,7 @@ function runit() {
     av = new JSAV($('.avcontainer'));
     avMatrix = av.ds.matrix(jsMatrix);
     avCoins = av.ds.array(jsCoins, {"layout":"vertical",
-      "relativeTo":avMatrix, "anchor":"left center", "myAnchor":"right center"});
+      "relativeTo":avMatrix, "anchor":"left top", "myAnchor":"right top"});
     
     av.umsg("The First row will be skipped because of it's simplicity.");
     av.displayInit();
