@@ -23,7 +23,7 @@
    }
   
    var defaultStyle = makeStyle(style_default, style_default, style_default)();
-   var trailStyle = makeStyle(style_current, style_default, style_default)();
+   var trailStyle = makeStyle(style_trail, style_default, style_default)();
    var lookingStyle = makeStyle(style_current, style_focus, style_focus)();
    var aboveStyle = makeStyle(style_current, style_accept, style_reject)();
    var leftStyle = makeStyle(style_current, style_reject, style_accept)();
