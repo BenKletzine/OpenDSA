@@ -70,13 +70,12 @@ Observe the following slideshow example, demonstrating a dynamic-programming imp
    :output: show
 .. odsascript:: AV/Development/dynamic-programming/brad-test.js
 
+embedded here?
+--------------
+something
+
 Exercises
 ---------
 Don't fail!
 
 .. avembed:: Exercises/Development/Thangacadex3.html ka
-
-embedded here?
---------------
-something
-
