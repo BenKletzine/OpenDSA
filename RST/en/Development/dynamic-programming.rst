@@ -19,7 +19,7 @@ The term *overlapping subproblems* refers to a situation in which breaking a pro
 The fundamental principle motivating dynamic programming is the elimination of this duplicated work. Dynamic programming accomplishes this by storing the solutions to subproblems the first time they are solved, then subsequently checking for stored solutions before solving each subproblem. In so doing, dynamic programming trades some space in order to realze an improvement in execution time. 
 
 Case Study: Optimal Change-Making Problem
--------------------------------------------
+-----------------------------------------
 To illustrate the advantages of dynamic programming, we will take a look at the optimal change-making problem.
 
 Problem Statement
@@ -45,12 +45,15 @@ A Dynamic Programming Approach
 For the optimal change-making algorithm, there can be a significant amount of overlap in the subproblems, making it an excellent candidate for a dynamic programming solution. In this particular example we will take a "tabular" or "bottom-up" approach wherein we fill a 2-dimensional array with optimal solutions for the sub-problems.
 
 First, fill a 2-dimensional array of size c x a with subproblem solutions:
+
 1. For each possible amount:
 	a. For each coin:
-		a. Check the optimal solution using only lower-valued coins
-		b. Subtract this coin's value from amount and check the optimal solution, adding 1 to account for this coin
-		c. Save the better of the two solutions as the optimal vor this (coin, amount) combination
+		i. Check the optimal solution using only lower-valued coins
+		ii. Subtract this coin's value from amount and check the optimal solution, adding 1 to account for this coin
+		iii. Save the better of the two solutions as the optimal vor this (coin, amount) combination
+		
 Use backtracking to determine what coins were used:
+
 1. Start at the cell corresponding to the largest coin and desired amount of change
 2. While amount > 0
 	a. Check the optimal solution using only lower-valued coins
