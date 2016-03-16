@@ -64,7 +64,9 @@ Since we save results of subproblems when they are computed, we no longer duplic
 
 Optimal Change-Making Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-We will now run through an example of the dynamic-programming implementation of the optimal change-making algorithm we just described in action. The specific test case is making 11 'credits' of change using 1, 3, and 7 'credit' coins.
+We will now run through an example of the dynamic-programming implementation of the optimal change-making algorithm we just described in action. The specific test case is making 9 'credits' of change using 1, 3, and 5 'credit' coins.
+
+**Note:** For convenience, the slideshows skip over the top row since a 1 'credit coin is included, and the number of 1 'credit' coins to make change is always equal to the amount of change to be made.
 
 .. inlineav:: brad-test ss
    :output: show
@@ -72,7 +74,9 @@ We will now run through an example of the dynamic-programming implementation of 
 
 Minimum Coin Change with User Input
 -----------------------------------
-Wheras the previous slideshow demonstrated a specific test case, you will now be able to specify the amount of change to make and what coin denominations to include. **Note:** A 1 'credit' coin is always included, so you won't need to add that one.
+Wheras the previous slideshow demonstrated a specific test case, you will now be able to specify the amount of change to make and what coin denominations to include.
+
+**Note:** A 1 'credit' coin is always included, so you won't need to add that one.
 
 Try it out for yourself, it's k-rad ereet!
 

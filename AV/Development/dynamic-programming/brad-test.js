@@ -8,6 +8,7 @@ $(document).ready(function () {
    const style_default = {"background-color":"white"};
    const style_focus = {"background-color":"yellow"};
    const style_current = {"background-color":"lightgray"};
+   const style_trail = {"background-color":"skyblue"}
    const style_reject = {"background-color":"salmon"};
    const style_accept = {"background-color":"lightgreen"};
 
@@ -18,7 +19,7 @@ $(document).ready(function () {
    }
    //define css style groups as 3-tuple closures via makeStyle
    var defaultStyle = makeStyle(style_default, style_default, style_default)();
-   var trailStyle = makeStyle(style_current, style_default, style_default)();
+   var trailStyle = makeStyle(style_trail, style_default, style_default)();
    var lookingStyle = makeStyle(style_current, style_focus, style_focus)();
    var aboveStyle = makeStyle(style_current, style_accept, style_reject)();
    var leftStyle = makeStyle(style_current, style_reject, style_accept)();
@@ -89,7 +90,7 @@ $(document).ready(function () {
             
             //get optimals for using (left) and not-using (above) the current coin
             var above = i > 0 ? jsMatrix[i-1][j] : INVALID;
-            var left = j == 0 ? 0 : j >= jsCoins[i] ? jsMatrix[i][j-jsCoins[i]] +1 : INVALID;
+            var left = j == 0 ? i == 0 ? 0 : INVALID : j >= jsCoins[i] ? jsMatrix[i][j-jsCoins[i]] + 1 : INVALID;
             
             //highlight candidate cells and create slide
             //slide("look", lookingStyle);
@@ -125,9 +126,13 @@ $(document).ready(function () {
 
       /*Build table of info, append msg, apply styles s[], generate slide*/
       function slide(msg, s){
+         //create slide explaining top row being skipped
          //only add msg and step if a slide is desired for this frame
-         if(cnt == slideList[0]) return;
-         
+         if(i == 0 && j == 0){
+            msg = "With a 1-credit coin, the top row always equals change amount."
+         }else if(i == 0 || cnt == slideList[0]){
+            return;
+         }
          //check that i and j are in valid range
          var abv = above == INVALID ? "-" : above;
          var lft = left == INVALID ? "-" : left;
