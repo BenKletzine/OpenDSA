@@ -4,7 +4,8 @@
 (function ($) {
   var av;
   var arraySize = 0;
-  var denom = [];
+  var denom;
+  var denomArray = [];
   var jsArr=[[],[]];
   
 function runit() {
@@ -24,6 +25,9 @@ function runit() {
         arraySize = 10;
     }
     //set size for denom
+    
+    
+    
     
     for(var i = 0; i < arraySize; i++)
     {
