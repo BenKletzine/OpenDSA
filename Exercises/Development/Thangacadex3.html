@@ -15,7 +15,7 @@
 	      <var id="lastIndex">arrSize - 1</var>
         <var id="arrValues">thangacadex3.initArr(arrSize, 1)</var>
 		    <var id="arrValues2">thangacadex3.initArr2(location, coin)</var>
-        <var id="JSAV">thangacadex3.initJSAV(arrSize)</var>
+        <var id="JSAV">thangacadex3.initJSAV(arrSize, coin)</var>
         <var id="theAnswer">thangacadex3.nextValue(location, coin)</var>
         <var id="option0">thangacadex3.option[0]</var>
         <var id="option1">thangacadex3.option[1]</var>
@@ -25,7 +25,7 @@
         <div id="Thangacadex3p">
           <p class="question">What is the next value in this list of numbers? </p>
 	             <p>Change Wanted: <var>lastIndex - 1</var> </p> <!-- Display Change wanted -->
-	             <p>Your Change: <var>coin</var> </p>  <!--Display denomination -->
+	             <p>Your Coin: 1 And <var>coin</var> </p>  <!--Display denomination -->
                <div id="Thangacadex3" class="jsavcanvas"></div>
 	             <!-- <p>Second Row: </p><pre><var>arrValues2</var></pre> -->
           <div class="solution"> <var>theAnswer</var></div>
@@ -35,7 +35,7 @@
 	             <li><var>option2</var></li>
 	             </ul>
           <div class="hints">
-		        <p>If your change is higher than the current solution then just add ones until you get your optimal solution.</p>
+		        <p>If your change is higher than the current solution then look up for the optimal solution.</p>
             <p>Current solution is <var>location - 1</var>, find Left solution, which one is optimal?</p>
             <p>Left solution = (Go left <var>coin</var> times and get its value) now add +1</p>
 		  </div>
