@@ -17,22 +17,25 @@ $(document).ready(function () {
       return function(){return s;};
    }
 
-   //define style groups as 3-tuple closures via makeStyle
+   //define css style groups as 3-tuple closures via makeStyle
    var defaultStyle = makeStyle(style_default, style_default, style_default)();
+   var trailStyle = makeStyle(style_current, style_default, style_default)();
    var lookingStyle = makeStyle(style_current, style_focus, style_focus)();
    var aboveStyle = makeStyle(style_current, style_accept, style_reject)();
    var leftStyle = makeStyle(style_current, style_reject, style_accept)();
 
    //js vars
-   var amount = 12;
-   var jsCoins = [1,3,5]; //getCoins();
-   var jsArr = arrInit(jsCoins.length, amount);
+   var amount = 14;
+   var jsCoins = [1,3,5];
+   var jsMatrix = arrInit(jsCoins.length, amount);
    var slides = [0,12,13,14,15,16,17,18,27,28,32,33,41];
 
    //fire up the av
    JSAV.init();
    var av = new JSAV("brad-test");
-   var avArr = av.ds.matrix(jsArr);
+   var avMatrix = av.ds.matrix(jsMatrix);
+   var avCoins = av.ds.array(jsCoins, {"layout":"vertical",
+      "relativeTo":avMatrix, "anchor":"left center", "myAnchor":"right center"});
 
    //first slide
    av.umsg("OMG DYNAMIC PROGRAMMING!!1");
@@ -45,16 +48,10 @@ $(document).ready(function () {
    av.umsg("that's all, folks");
    av.recorded();
 
-   /*Get denominations to be used*/
-   function getCoins(){
-      //possibly add user input
-      return [1,4,7];
-   }
-
    /*Initialize matrix based on number of coins and amount of change*/
    function arrInit(coins, amt){
       var arr = [];
-      for (var i = 0; i < coins; i++){
+      for(var i = 0; i < coins; ++i){
          arr[i] = new Array(amount + 1);
       }
       return arr;
@@ -66,43 +63,32 @@ $(document).ready(function () {
       var above = 0;
       var left = 0;
 
-      for (var i = 0; i < jsArr.length; ++i){
-         for (var j = 0; j < jsArr[i].length && j <= amt; ++j){
+      for (var i = 0; i < jsMatrix.length; ++i){
+         for (var j = 0; j < jsMatrix[i].length && j <= amt; ++j){
             above = left = INVALID;
             //get optimals for using (left) and not-using (above) the current coin
-            var above = i > 0 ? jsArr[i-1][j] : INVALID;
-
-            //var left = j == 0 ? 0 : j >= jsCoins[i] ? jsArr[i][j-jsCoins[i]] : INVALID;
-            if(j == 0){
-               left = 0;
-               //slide("Amount of change is 0, so no coins are used. (base case)");
-            }else if(j >= jsCoins[i]){
-               left = jsArr[i][j-jsCoins[i]] + 1;
-               //slide("Look 'left' for solution. (current amount minus coin value)");
-            }else{
-               left = INVALID;
-               //slide("Coin value is greater than current amount, so no solution is possible with this coin.");
-            }
-            slide("looking", lookingStyle);
+            var above = i > 0 ? jsMatrix[i-1][j] : INVALID;
+            var left = j == 0 ? 0 : j >= jsCoins[i] ? jsMatrix[i][j-jsCoins[i]] +1 : INVALID;
+            //slide("look", lookingStyle);
 
             //choose between left or above
-            if(left <= above){
-               jsArr[i][j] = left;
-               avArr.value(i, j, left);
-
-               slide("Optimal solution uses this coin, go left.", leftStyle);
+            if(left < above){
+               jsMatrix[i][j] = left;
+               avMatrix.value(i, j, left);
+               slide("Optimal solution includes this coin.", leftStyle);
+            }else if(above < left){
+               jsMatrix[i][j] = above;
+               avMatrix.value(i, j, above);
+               slide("Optimal solution does not include this coin.", aboveStyle);
             }else{
-               jsArr[i][j] = above;
-               avArr.value(i, j, above);
-
-               slide("Optimal solution does not use this coin, go above", aboveStyle);
+               jsMatrix[i][j] = left;
+               avMatrix.value(i, j, left);
+               slide("Optimal solution exists for either choice, so we arbitrarily choose to include this coin.", leftStyle);
             }
-
             //set default style before moving to next frame
             style(i, j, defaultStyle);
 
             if(DEBUG) console.log("frame: " + cnt + "\n");
-
             //consume frame marker if slide was generated
             if(cnt++ == show[0]){
                show.shift();
@@ -134,77 +120,44 @@ $(document).ready(function () {
          av.umsg(msg);
          av.step();
       }
-      
-      function xxslide(msg){
-         //only add msg and step if a slide is desired
-         if(cnt != show[0]) return;
-
-         var abv = above == INVALID ? "---" : above;
-         var lft = left == INVALID ? "---" : left;
-         var tbl = ["", "", "", ""];
-         var td = "&nbsp&nbsp</td>"
-
-         tbl[0] = "<td>Amount of change:" + td + "<td>" + j + td;
-         tbl[1] = "<td>Coin value:" + td + "<td>" + jsCoins[i] + td;
-         tbl[2] = "<td>Don't use coin (above):" + td + "<td>" + abv + td;
-         tbl[3] = "<td>Do use coin (left):" + td + "<td>" + lft + td;
-         
-         msg = "<table>"
-            + "<tr>" + tbl[0] + tbl[1] + "</tr>"
-            + "<tr>" + tbl[2] + tbl[3] + "</tr>"
-            + "</table>" + msg;
-        
-         av.umsg(msg);
-         av.step();
-      }
    }
 
-
+   /*Backtrack to find which coins were used*/
    function backtrack(){
       var cntCoins = [0,0,0];
-      var i = jsArr.length - 1;
-      var j = jsArr[0].length - 1;
+      var i = jsMatrix.length - 1;
+      var j = jsMatrix[0].length - 1;
 
-      //style(i, j, style_focus);
       av.umsg("Time to backtrack!");
       av.step();
 
-      while(j > 0){
-         // style(i-1, j, style_focus);
-         // style(i, j-jsCoins[i], style_focus);
-         style(i, j, lookingStyle);
-         av.umsg("checking");
-         av.step();
-         
-         if(i > 0 && jsArr[i][j] == jsArr[i-1][j]){
-            style(i, j, aboveStyle);
-            av.umsg("up");
-            av.step();
-            //move up
+      while(j > 0){         
+         if(i > 0 && jsMatrix[i][j] == jsMatrix[i-1][j]){
+            slide("up", aboveStyle, defaultStyle);
             i--;
          }else{
-            style(i, j, leftStyle);
-            av.umsg("left");
-            av.step();
-            //move left
+            slide("left", aboveStyle, trailStyle);
             cntCoins[i]++;
             j -= jsCoins[i];
          }
       }
       console.log(cntCoins);
+
+      function slide(msg, s1, s2){
+         //apply slide style
+         style(i, j, s1);
+         //generate slide
+         av.umsg(msg);
+         av.step();
+         //apply residual style
+         style(i, j, s2);
+      }
    }
 
    /*Index [i][j] is highlighted and has style s applied*/
    function style(i, j, s){
-      avArr.css(i, j, s[0]);
-      if(i >= 1) avArr.css(i-1, j, s[1]);
-      if(j >= jsCoins[i]) avArr.css(i, j-jsCoins[i], s[2]);
+      avMatrix.css(i, j, s[0]);
+      if(i >= 1) avMatrix.css(i-1, j, s[1]);
+      if(j >= jsCoins[i]) avMatrix.css(i, j-jsCoins[i], s[2]);
    }
-
-   // function xxstyle(i, j, s){
-   //    if(i < 0 || j < 0){
-   //       return;
-   //    }
-   //    avArr.css(i, j, s);
-   // }
 });
