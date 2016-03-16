@@ -16,39 +16,55 @@ $(document).ready(function () {
       var s = [a, b, c];
       return function(){return s;};
    }
-
    //define css style groups as 3-tuple closures via makeStyle
    var defaultStyle = makeStyle(style_default, style_default, style_default)();
    var trailStyle = makeStyle(style_current, style_default, style_default)();
    var lookingStyle = makeStyle(style_current, style_focus, style_focus)();
    var aboveStyle = makeStyle(style_current, style_accept, style_reject)();
    var leftStyle = makeStyle(style_current, style_reject, style_accept)();
+   //declare js vars
+   var amount, jsCoins, jsMatrix, slides, skip;
+   var jsCount = [0,0,0];
+   //declare av vars
+   var av, avMatrix, avCoins, avCount;
+   //initialize for slideshow type
+   inlineInit();
 
-   //initialize js vars
-   var amount = 14;
-   var jsCoins = [1,3,5];
-   var jsMatrix = arrInit(jsCoins.length, amount);
-   var slides = [0,12,13,14,15,16,17,18,27,28,32,33,41];
+   //begin the show!
+   runMe();
 
    //fire up the av
-   JSAV.init();
-   var av = new JSAV("brad-test");
-   var avMatrix = av.ds.matrix(jsMatrix);
-   var avCoins = av.ds.array(jsCoins, {"layout":"vertical",
-      "relativeTo":avMatrix, "anchor":"left center", "myAnchor":"right center"});
-   // var avCoins = av.ds.matrix(jsCoins, {
-   //    "relativeTo":avMatrix, "anchor":"left center", "myAnchor":"right center"});
+   function inlineInit(){
+      amount = 11;
+      jsCoins = [1,3,7];
+      jsMatrix = arrInit(jsCoins.length, amount);
+      //slides = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35];
+      skip = [];
+      
+      JSAV.init();
+      av = new JSAV("brad-test");
+   }
 
-   //first slide
-   av.umsg("OMG DYNAMIC PROGRAMMING!!1");
-   av.displayInit();
-   //fill change matrix
-   getCha(amount, slides);
-   //backtrack optimal solution
-   backtrack();
-   // last slide
-   av.umsg("that's all, folks");
-   av.recorded();
+   function runMe(){
+      avMatrix = av.ds.matrix(jsMatrix);
+      avCoins = av.ds.array(jsCoins, {"layout":"vertical",
+         "relativeTo":avMatrix, "anchor":"left top", "myAnchor":"right top"});
+      // var avCoins = av.ds.matrix(jsCoins, {
+      //    "relativeTo":avMatrix, "anchor":"left center", "myAnchor":"right center"});
+      //avCount.hide();
+      //first slide
+      av.umsg("OMG DYNAMIC PROGRAMMING!!1");
+      av.displayInit();
+      //fill change matrix
+      getCha(amount, skip);
+      //backtrack optimal solution
+      avCount = av.ds.array(jsCount, {"layout":"vertical", //"visible":"false", 
+         "relativeTo":avCoins, "anchor":"left top", "myAnchor":"right top"});
+      backtrack();
+      // last slide
+      av.umsg("that's all, folks");
+      av.recorded();
+   }
 
    /*Initialize matrix based on number of coins and amount of change*/
    function arrInit(coins, amt){
@@ -60,7 +76,7 @@ $(document).ready(function () {
    }
 
    /*Compute solution and generate slides at specified indexes*/
-   function getCha(amt, show){
+   function getCha(amt, slideList){
       var cnt = 0;
       var above = 0;
       var left = 0;
@@ -99,8 +115,8 @@ $(document).ready(function () {
             if(DEBUG) console.log("frame: " + cnt + "\n");
             
             //consume frame marker if slide was generated
-            if(cnt++ == show[0]){
-               show.shift();
+            if(cnt++ == slideList[0]){
+               slideList.shift();
             }
          }
          //unstyle current coin
@@ -110,7 +126,7 @@ $(document).ready(function () {
       /*Build table of info, append msg, apply styles s[], generate slide*/
       function slide(msg, s){
          //only add msg and step if a slide is desired for this frame
-         if(cnt != show[0]) return;
+         if(cnt == slideList[0]) return;
          
          //check that i and j are in valid range
          var abv = above == INVALID ? "-" : above;
@@ -139,11 +155,10 @@ $(document).ready(function () {
 
    /*Backtrack to find which coins were used*/
    function backtrack(){
-      var cntCoins = [0,0,0];
       var i = jsMatrix.length - 1;
       var j = jsMatrix[0].length - 1;
-
-      av.umsg("All subproblems have been ");
+      avCount.show();
+      av.umsg("All subproblems are computed, we now backtrack in order to count the coins used.");
       av.step();
       avCoins.css(i, style_focus);
       
@@ -156,11 +171,14 @@ $(document).ready(function () {
             avCoins.css(i, style_focus);
          }else{
             slide("Add 1 of this coin, move left.", aboveStyle, trailStyle);
-            cntCoins[i]++;
+            jsCount[i]++;
+            avCount.value(i, jsCount[i]);
             j -= jsCoins[i];
          }
       }
-      console.log(cntCoins);
+      avCoins.css(i, style_default);
+
+      if(DEBUG) console.log(jsCount);
 
       /*Apply styles s1[], create slide, apply styles s2[]*/
       function slide(msg, s1, s2){

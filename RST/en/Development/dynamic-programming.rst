@@ -64,18 +64,30 @@ Since we save results of subproblems when they are computed, we no longer duplic
 
 Optimal Change-Making Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Observe the following slideshow example, demonstrating a dynamic-programming implementation of the optimal change-making algorithm in action:
+We will now run through an example of the dynamic-programming implementation of the optimal change-making algorithm we just described in action. The specific test case is making 11 'credits' of change using 1, 3, and 7 'credit' coins.
 
 .. inlineav:: brad-test ss
    :output: show
 .. odsascript:: AV/Development/dynamic-programming/brad-test.js
 
-embedded here?
---------------
-something
+Minimum Coin Change with User Input
+-----------------------------------
 
-Exercises
----------
-Don't fail!
+Previously we had the inlineav where the inputs are random and the 
+user is just given a matrix. In this next set of visualization we 
+have an embedded AV where it will allow us to process input from
+the user. 
+Try it out for yourself!
+
+
+.. avembed:: AV/Development/thangacad2.html ss
+
+Minimum Coin Change Question
+-----------------------------------------------------
+
+Here we have an exercise for you to try. The change wanted is
+displayed as well as the denomination. You are to determine the 
+next value in the matrix by using what you've learned. If you 
+are stuck try using a hint.
 
 .. avembed:: Exercises/Development/Thangacadex3.html ka
