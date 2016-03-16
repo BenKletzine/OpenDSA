@@ -1,7 +1,7 @@
 "use strict";
 
 $(document).ready(function () {
-   const DEBUG = true;
+   const DEBUG = false;
    const INVALID = 1337;
 
    //define css styles
@@ -35,8 +35,8 @@ $(document).ready(function () {
 
    //fire up the av
    function inlineInit(){
-      amount = 11;
-      jsCoins = [1,3,7];
+      amount = 9;
+      jsCoins = [1,3,5];
       jsMatrix = arrInit(jsCoins.length, amount);
       //slides = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35];
       skip = [];
@@ -163,17 +163,19 @@ $(document).ready(function () {
       avCoins.css(i, style_focus);
       
       while(j > 0){
-         if(i > 0 && jsMatrix[i][j] == jsMatrix[i-1][j]){
+         if(i == 0 || jsMatrix[i-1][j] > jsMatrix[i][j-jsCoins[i]]){
+            //go left
+            jsCount[i]++;
+            avCount.value(i, jsCount[i]);
+            slide("Add 1 of this coin, move left.", leftStyle, trailStyle);
+            j -= jsCoins[i];
+         }else{
+            //go up
             slide("No more coins of this denomination will be included, move up one row.",
                aboveStyle, defaultStyle);
             avCoins.css(i, style_default);
             i--;
             avCoins.css(i, style_focus);
-         }else{
-            slide("Add 1 of this coin, move left.", aboveStyle, trailStyle);
-            jsCount[i]++;
-            avCount.value(i, jsCount[i]);
-            j -= jsCoins[i];
          }
       }
       avCoins.css(i, style_default);

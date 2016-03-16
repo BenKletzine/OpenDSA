@@ -72,22 +72,18 @@ We will now run through an example of the dynamic-programming implementation of 
 
 Minimum Coin Change with User Input
 -----------------------------------
+Wheras the previous slideshow demonstrated a specific test case, you will now be able to specify the amount of change to make and what coin denominations to include. **Note:** A 1 'credit' coin is always included, so you won't need to add that one.
 
-Previously we had the inlineav where the inputs are random and the 
-user is just given a matrix. In this next set of visualization we 
-have an embedded AV where it will allow us to process input from
-the user. 
-Try it out for yourself!
-
+Try it out for yourself, it's k-rad ereet!
 
 .. avembed:: AV/Development/thangacad2.html ss
 
-Minimum Coin Change Question
+Test Your Understanding
 -----------------------------------------------------
-
-Here we have an exercise for you to try. The change wanted is
+Here we have an optimal change-making exercise for you to try. The change wanted is
 displayed as well as the denomination. You are to determine the 
-next value in the matrix by using what you've learned. If you 
+next value in the matrix produced by the dynamic programming algorithm demonstrated in the previous slides. If you 
 are stuck try using a hint.
 
 .. avembed:: Exercises/Development/Thangacadex3.html ka
+
